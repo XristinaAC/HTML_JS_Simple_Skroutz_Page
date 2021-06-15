@@ -1,0 +1,325 @@
+<!-- ONOMA : CHRISTINA PAPADODIMITRAKI -->
+<!-- A.M.: 1684 -->
+
+<!DOCTYPE html>
+<html>
+  <meta charset ="UTF-8"/> 
+  <head>
+    <title>MEM-331_Άσκηση 1</title>
+
+    <style type = "text/css">
+
+      body {
+        background : #90AFC5;
+      }
+
+      #Hlekroniko_Katasthma{
+        background : #517688;
+        padding : 25px;
+        text-align: center;
+        color: white;
+        display : block;
+      }
+
+      #h1_image
+      {
+        float : left;
+      }
+
+      #button
+      {
+        border-style : solid;
+        border-radius : 10px;
+        border-color : white #556B2F #556B2F white;
+      }
+
+      #FILTRA
+      {
+        float : left;
+        width: 17%;
+      }
+
+      #PHONES
+      {
+        float : left;
+        padding-left: 50px;
+      }
+
+      #properties
+      {
+        margin-top : 40px;
+      }
+
+      .filtra_subcategories
+      {
+        border-bottom: 2px solid #556B2F;
+      }
+
+      .mobile_phone
+      {
+        background-color : white;
+        width : 450px;
+        height: 200px;
+        margin-top : 20px;
+        text-align: left;
+        padding : 20px;
+      }
+
+      .phone_image
+      {
+        float : left;
+        padding-right: 10px;
+        width : 150px;
+        height : 200px;
+      }
+ 
+    </style>
+
+    <script> 
+    var phonesArray = ["GalaxyS21","iPhone"];
+var brands = ["Apple","Samsung"];
+var brandsSoftware = {Android : "GalaxyS21", iOS : "iPhone"}
+var paragraph = document.createElement("p");
+var node = document.createTextNode("Δεν υπάρχουν κινητά με οθόνη τέτοιου μεγέθους.");
+paragraph.appendChild(node);
+
+function chooseBrand()
+{
+    var mobilePhone = [];
+    var checkbox = [];
+    var counter = 0;
+    for(var i = 0; i < phonesArray.length;++i)
+    {
+        mobilePhone[i] = document.getElementById(phonesArray[i]);
+        checkbox[i] = document.getElementById(brands[i]);
+    }
+
+    for(var i = 0; i < mobilePhone.length; ++i)
+    {
+        if(checkbox[i].checked)
+        {
+            counter++;
+            mobilePhone[i].style.display = 'none';
+            continue;
+        }
+        mobilePhone[i].style.display = '';
+    }
+
+    if(counter ==  mobilePhone.length)
+    {
+        for(var i = 0; i < mobilePhone.length; ++i)
+        {
+            mobilePhone[i].style.display = '';
+        }
+    }
+}
+
+function mediumScreenSize()
+{
+    var radio1 = document.getElementById('Middle');
+    var radio2 = document.getElementById('Big');
+    var iPhone = document.getElementById('iPhone');
+    var Galaxy = document.getElementById('GalaxyS21');
+    var phones = document.getElementById("PHONES");
+
+    if(radio1.checked && radio2.checked)
+    {
+        radio2.checked = false;
+        iPhone.style.display = 'none';
+        Galaxy.style.display = 'none';
+    }
+    else if(radio1.checked)
+    {
+        iPhone.style.display = 'none';
+        Galaxy.style.display = 'none';
+    }
+
+    phones.appendChild(paragraph);
+    paragraph.style.display = '';
+}
+
+function bigScreenSize()
+{
+    var radio1 = document.getElementById('Middle');
+    var radio2 = document.getElementById('Big');
+    var iPhone = document.getElementById('iPhone');
+    var Galaxy = document.getElementById('GalaxyS21');
+
+    if(radio1.checked && radio2.checked)
+    {
+        radio1.checked = false;
+    
+        iPhone.style.display = '';
+        Galaxy.style.display = '';
+        paragraph.style.display = 'none';
+    }
+    else if(radio1.checked)
+    {
+        iPhone.style.display = '';
+        Galaxy.style.display = '';
+        paragraph.style.display = 'none';
+    }
+}
+
+function screenOptions()
+{
+    var inputBoxFrom  = document.forms["screenSize"]["From"].value;
+    var inputBoxTo  = document.forms["screenSize"]["To"].value;
+    var Galaxy = document.getElementById('GalaxyS21');
+    var iPhone = document.getElementById('iPhone');
+    var phones = document.getElementById("PHONES");
+
+    if(inputBoxFrom != "" && inputBoxTo!="" && inputBoxTo < inputBoxFrom )
+    {
+        Galaxy.style.display = 'none';
+        iPhone.style.display = 'none';
+        alert("Έχεις δώσει ανάποδα τις τιμές!!");
+        return;
+    }
+
+    if(inputBoxTo < "6.1" || inputBoxFrom > "6.2")
+    {
+        Galaxy.style.display = 'none';
+        iPhone.style.display = 'none';
+        phones.appendChild(paragraph);
+        paragraph.style.display = '';
+    }
+    else if(inputBoxTo >= "6.1" && inputBoxTo < "6.2")
+    {
+        paragraph.style.display = 'none';
+        Galaxy.style.display = 'none';
+        iPhone.style.display = '';
+    }
+    else if(inputBoxFrom == "6.2")
+    {
+        paragraph.style.display = 'none';
+        Galaxy.style.display = '';
+        iPhone.style.display = 'none';
+    }
+    else
+    {
+        paragraph.style.display = 'none';
+        Galaxy.style.display = '';
+        iPhone.style.display = '';
+    }
+}
+
+function software(id1,id2)
+{
+    var radio1 = document.getElementById(id1);
+    var radio2 = document.getElementById(id2);
+
+    if(radio1.checked && radio2.checked)
+    {
+        
+        radio2.checked = false;
+        document.getElementById(brandsSoftware[radio2.id]).style.display = 'none';
+        document.getElementById(brandsSoftware[radio1.id]).style.display = '';
+    }
+    else if(radio1.checked)
+    {
+        document.getElementById(brandsSoftware[radio2.id]).style.display = 'none';
+        document.getElementById(brandsSoftware[radio1.id]).style.display = '';
+    }
+}
+
+function cleanFiltra()
+{
+    var checkboxes = document.querySelectorAll('input[type=checkbox]');
+    var radios = document.querySelectorAll('input[type=radio]');
+    var text = document.querySelectorAll('input[type=text]');
+    var Galaxy = document.getElementById('GalaxyS21');
+    var iPhone = document.getElementById('iPhone');
+
+    text[0].value = "Από";
+    text[1].value = "Εως"
+
+    for(var i = 0 ; i < checkboxes.length; ++i)
+    {
+        checkboxes[i].checked = false;
+    }
+
+    for(var i = 0 ; i < radios.length; ++i)
+    {
+        radios[i].checked = false;
+    }
+
+    iPhone.style.display = '';
+    Galaxy.style.display = '';
+    paragraph.style.display = 'none';
+}
+    </script>
+
+  </head>
+  <body>
+    <div id="Hlekroniko_Katasthma">
+      <h1><img id="h1_image" src = "skroutz.svg" alt="skroutz" />Ηλεκτρονικό Κατάστημα</h1>
+    </div>
+
+    <div id="FILTRA">
+      <h2>Φίλτρα</h2>
+        <div class="filtra_subcategories">
+          <h3>Κατασκευαστής</h3>
+          <form>
+            <div><input type ="checkbox" id ="Apple" onclick = "chooseBrand();" /> Apple</div>
+            <div><input type ="checkbox" id ="Samsung"  onclick = "chooseBrand();"/> Samsung</div> <br>
+          </form>
+        </div>
+
+        <div class="filtra_subcategories">
+          <h3>Μεγέθος Οθόνης</h3>
+          <form name = "screenSize">
+            <div><input type ="radio" id ="Middle" onclick = "mediumScreenSize();"/> Μεσαία (5" έως 5.9")</div>
+            <div><input type ="radio" id ="Big" onclick = "bigScreenSize();"/> Μεγάλη (6" και άνω)</div>
+            <div>
+              <input type ="text" name ="From" value = "Από" size = "7"/> 
+              <input type ="text" name ="To" value = "Εως" size = "7"/> 
+            </div>
+          </form>
+          <button onclick = "screenOptions();">Εφαρμογή</button>
+          <br><br>
+        </div>
+
+        <div class="filtra_subcategories">
+          <h3>Λειτουργικό Σύστημα</h3>
+          <form>
+            <div><input type ="radio" id ="Android" onclick="software(id,'iOS');"/> Android</div>
+            <div><input type ="radio" id ="iOS" onclick="software(id,'Android');"/> iOS</div><br>
+          </form>
+        </div>
+
+        <br><input id = "button" type ="submit" name ="Καθαρισμός Φίλτρων" value ="Καθαρισμός Φίλτρων" onclick="cleanFiltra();" />
+    </div>
+
+    <div id = "PHONES">
+      <h1>Κινητά</h1>
+
+      <div id = "iPhone" class="mobile_phone"> <!--style = "display: none;"-->
+        <img class="phone_image" src = "iphone-12.jpeg" alt="iPhone"  />
+        <h2>Apple iPhone 12</h2>
+        <p id = "properties">
+          <div>Οθόνη: 6.1", iOS 14, Μνήμη: 64GB,</div>
+          <div>Κάμερα: 12MP + 12MP, Selfie: 12MP, CPU: </div>
+          <div>Εξαπύρηνος (4+2), Κατασκευαστής: Apple</div>
+        </p>
+
+        <p style="margin-top: 36px;">732€</p>
+      </div>
+
+      <div id = "GalaxyS21" class="mobile_phone">
+        <img class="phone_image" src = "galaxy-s21.jpeg" alt="Samsung"  />
+        <h2>Samsung Galaxy S21</h2>
+        <p id = "properties">
+          <div>Οθόνη: 6.2", Android 11, RAM: 8GB,</div>
+          <div>Μνήμη: 128GB, Κάμερα: 12MP + 64MP + 12MP, Selfie: 10MP, CPU: Οκταπύρηνος</div>
+          <div>(1+3+4), Κατασκευαστής: Samsung</div>
+        </p>
+
+        <p style="margin-top: 10px;">709€</p>
+      </div>
+
+    </div>
+  </div>
+
+  </body>
+</html>
